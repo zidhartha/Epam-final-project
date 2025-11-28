@@ -9,24 +9,15 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
 @Entity
-public class Client extends User{
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Client extends User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-
-    private String email;
-
-    private String password;
-    @Column(name="card")
+    @Column(name = "card", nullable = false, unique = true)
     private String card;
 
-    public Client(Long id, String firstName, String lastName, String email, String card) {
-        super(id, firstName, lastName, email);
+    public Client(Long id, String name, String email, String password, String card) {
+        super(id, name, email, password);
         this.card = card;
     }
 }

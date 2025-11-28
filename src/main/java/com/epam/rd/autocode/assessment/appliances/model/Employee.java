@@ -9,18 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="employee")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Employee extends User{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-
-    private String email;
-
-    private String password;
-
     public Employee(Long id,String name,String email,String password,String department){
         super(id,name,email,password);
         this.department = department;
