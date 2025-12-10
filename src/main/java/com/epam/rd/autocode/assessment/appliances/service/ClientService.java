@@ -7,10 +7,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface ClientService {
-
+    ClientDto findByEmail(String email);
     List<ClientDto> getAll();
     ClientDto getById(Long id);
-    ClientDto create(Client client);
-    ClientDto update(Long id,Client client);
+    ClientDto create(ClientDto clientDto);
+    ClientDto update(Long id,ClientDto clientDto);
     void delete(Long id);
+
 }

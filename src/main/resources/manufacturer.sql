@@ -5,3 +5,4 @@ INSERT INTO manufacturer (name) VALUES ('Apple');
 INSERT INTO manufacturer (name) VALUES ('Lenovo');
 INSERT INTO manufacturer (name) VALUES ('Acer');
 INSERT INTO manufacturer (name) VALUES ('AMD');
+insert into manufacturer(name) VALUES('Opel')

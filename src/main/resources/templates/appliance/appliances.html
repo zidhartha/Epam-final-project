@@ -2,19 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Latest compiled JavaScript -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Appliances</title>
 </head>
 <body>
 <header>
     <div th:insert="~{menunavy::navy}"></div>
 </header>
+
 <main>
     <h1 th:text="#{appliance.header.list}">Appliances list</h1>
+
     <table class="table table-hover">
         <thead>
         <tr class="table-dark">
@@ -28,26 +29,79 @@
             <th th:text="#{object.appliance.description}"></th>
             <th th:text="#{object.appliance.power}"></th>
             <th>Price</th>
+            <th>Actions</th>
         </tr>
         </thead>
-        <tbody>
-        <tr th:each="appliance: ${appliances}">
-            <td><span class="float-end" th:text="${appliance.id}"/></td>
-            <td th:text="${appliance.name}"/>
-            <td><span class="float-end" th:text="${appliance.category}"/></td>
-            <td th:text="${appliance.model}"/>
-            <td><span class="float-end" th:text="${appliance.manufacturer.getName()}"/></td>
-            <td th:text="${appliance.powerType}"/>
-            <td th:text="${appliance.characteristic}"/>
-            <td th:text="${appliance.description}"/>
-            <td><span class="float-end" th:text="${appliance.power}"/></td>
-            <td><span class="float-end" th:text="${appliance.price}"/></td>
-        </tr>
 
+        <tbody>
+        <tr th:each="appliance : ${appliances}">
+            <td><span class="float-end" th:text="${appliance.id}"></span></td>
+            <td th:text="${appliance.name}"></td>
+            <td><span class="float-end" th:text="${appliance.category}"></span></td>
+            <td th:text="${appliance.model}"></td>
+
+            <td>
+                <span th:text="${manufacturers[appliance.manufacturerId - 1].name}"></span>
+            </td>
+
+            <td th:text="${appliance.powerType}"></td>
+            <td th:text="${appliance.characteristic}"></td>
+            <td th:text="${appliance.description}"></td>
+            <td><span class="float-end" th:text="${appliance.power}"></span></td>
+            <td><span class="float-end" th:text="${appliance.price}"></span></td>
+
+            <td>
+                <a th:href="@{|/appliances/edit/${appliance.id}|}"
+                   class="btn btn-sm btn-warning" title="Edit">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+
+                <a th:href="@{|/appliances/delete/${appliance.id}|}"
+                   class="btn btn-sm btn-danger" title="Delete">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </td>
+
+        </tr>
         </tbody>
+
     </table>
-    <a th:href="@{appliances/add}" class="btn btn-primary" th:text="#{appliance.btn.new}">New appliance</a>
+
+    <a th:href="@{appliances/add}" class="btn btn-primary" th:text="#{appliance.btn.new}">
+        New appliance
+    </a>
+
+
 </main>
+
 <div th:insert="~{footer::footer}"></div>
+
 </body>
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        color: #212529;
+        margin: 20px;
+    }
+    h1 {
+        margin-bottom: 20px;
+        font-weight: 600;
+        color: #343a40;
+    }
+    .table {
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    .table-dark { background-color: #343a40 !important; color: #fff; }
+    .table-hover tbody tr:hover { background-color: #e9f5ff; transition: 0.2s; }
+    td span.float-end { display: inline-block; min-width: 60px; text-align: right; }
+    td { vertical-align: middle; max-width: 180px; word-wrap: break-word; }
+    td:last-child span.float-end { font-weight: bold; color: #0d6efd; }
+    .btn-primary { margin-top: 20px; }
+</style>
+
 </html>

@@ -8,7 +8,7 @@ import java.util.List;
 public interface ManufacturerService {
     List<ManufacturerDto> getAll();
     ManufacturerDto getById(Long id);
-    ManufacturerDto create(Manufacturer manufacturer);
-    ManufacturerDto update(Long id,Manufacturer manufacturer);
+    ManufacturerDto create(ManufacturerDto manufacturer);
+    ManufacturerDto update(Long id,ManufacturerDto manufacturer);
     void delete(Long id);
 }

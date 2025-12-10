@@ -13,8 +13,8 @@ public interface ApplianceService {
 
     List<ApplianceDto> getAll();
     ApplianceDto get(Long id);
-    ApplianceDto create(Appliance appliance);
-    ApplianceDto update(Long id,Appliance appliance);
+    ApplianceDto create(ApplianceDto applianceDto);
+    ApplianceDto update(Long id,ApplianceDto applianceDto);
     void delete(Long id);
 
 

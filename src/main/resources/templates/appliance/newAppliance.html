@@ -12,7 +12,7 @@
 <body>
 <div th:insert="~{menunavy::navy}"></div>
 <h1 th:text="#{appliance.btn.new}"></h1>
-<form action="#" th:action="@{add-appliance}" th:object="${appliance}" method="post">
+<form action="#" th:action="@{add-appliance}" th:object="${applianceDto}" method="post">
     <p>
     <p th:if="${#fields.hasErrors('name')}" class="text-danger">Invalid name</p>
     <span th:text="#{object.appliance.name}">
@@ -35,10 +35,10 @@
     </p>
 
     <p>
-    <p th:if="${#fields.hasErrors('manufacturer')}" class="text-danger">Invalid manufacturer</p>
+    <p th:if="${#fields.hasErrors('manufacturerId')}" class="text-danger">Invalid manufacturer</p>
     <span th:text="#{object.appliance.manufacturer}"></span>
 
-    <select th:field="*{manufacturer}">
+    <select th:field="*{manufacturerId}">
         <option th:each="manufacturer : ${manufacturers}" th:value="${manufacturer.getId()}"
                 th:text="${manufacturer.getName()}"></option>
     </select>

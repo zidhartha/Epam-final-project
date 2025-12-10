@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 @Entity
@@ -28,4 +29,17 @@ public class Orders {
 
     @Column(name="approved")
     private Boolean approved;
+
+    @Transient
+    public BigDecimal getAmount() {
+        if (orderRowSet == null || orderRowSet.isEmpty()) {
+            return BigDecimal.ZERO;
+        }
+
+        return orderRowSet.stream()
+                .map(OrderRow::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+
 }

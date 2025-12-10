@@ -1,6 +1,7 @@
 package com.epam.rd.autocode.assessment.appliances.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,4 +21,6 @@ public class Client extends User {
         super(id, name, email, password);
         this.card = card;
     }
+
+
 }

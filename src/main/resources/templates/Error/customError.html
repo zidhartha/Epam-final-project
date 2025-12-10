@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+    <style>
+        body { font-family: Arial,serif; padding: 30px; }
+        .card {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        .title { font-size: 26px; margin-bottom: 10px; color: #b30000; }
+        .message { font-size: 18px; }
+        .details { margin-top: 20px; color: #555; font-size: 14px; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="title" th:text="${title}">Error</div>
+
+    <div class="message" th:text="${message}"></div>
+
+    <div class="details">
+        <p><b>Status:</b> <span th:text="${status}"></span></p>
+        <p><b>Time:</b> <span th:text="${timestamp}"></span></p>
+        <p th:if="${debug != null}">
+            <b>Error:</b> <span th:text="${debug}"></span>
+        </p>
+    </div>
+
+    <a href="/" style="margin-top:20px; display:inline-block;">Back to Home</a>
+</div>
+</body>
+</html>

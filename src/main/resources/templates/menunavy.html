@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <body>
 <div th:fragment="navy">
     <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
@@ -7,22 +7,55 @@
             <a class="navbar-brand" href="/" th:text="#{shop.name}"></a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+
+                    <!-- Visible only to EMPLOYEE -->
+                    <li class="nav-item" sec:authorize="hasRole('EMPLOYEE')">
                         <a class="nav-link" th:href="@{/clients}" th:text="#{clients.menu.name}"></a>
                     </li>
-                    <li class="nav-item">
+
+                    <li class="nav-item" sec:authorize="hasRole('EMPLOYEE')">
                         <a class="nav-link" th:href="@{/employees}" th:text="#{employees.menu.name}"></a>
                     </li>
-                    <li class="nav-item">
+
+                    <li class="nav-item" sec:authorize="hasRole('EMPLOYEE')">
                         <a class="nav-link" th:href="@{/manufacturers}" th:text="#{manufacturers.menu.name}"></a>
                     </li>
-                    <li class="nav-item">
+
+                    <li class="nav-item" sec:authorize="hasRole('EMPLOYEE')">
                         <a class="nav-link" th:href="@{/appliances}" th:text="#{appliances.menu.name}"></a>
                     </li>
-                    <li class="nav-item">
+
+                    <!-- ORDERS — visible to both EMPLOYEE and CUSTOMER -->
+                    <li class="nav-item" sec:authorize="hasAnyRole('EMPLOYEE','CUSTOMER')">
                         <a class="nav-link" th:href="@{/orders}" th:text="#{order.menu.name}"></a>
                     </li>
                 </ul>
+
+
+
+                <div class="d-flex ms-auto align-items-center">
+
+                    <!-- Show username when logged in -->
+                    <span class="text-white me-3" sec:authorize="isAuthenticated()">
+        Logged in as: <b sec:authentication="name"></b>
+            </span>
+
+                    <!-- Logout button -->
+                    <a class="btn btn-danger me-2" sec:authorize="isAuthenticated()" href="/logout">
+                        Logout
+                    </a>
+
+                    <!-- Login button -->
+                    <a class="btn btn-success me-2" sec:authorize="!isAuthenticated()" href="/login">
+                        Login
+                    </a>
+
+                    <!-- Language options -->
+                    <a class="nav-link text-white" href="?lang=en">English</a>
+                    <span class="text-white mx-1">|</span>
+                    <a class="nav-link text-white" href="?lang=ka">ქართული</a>
+                </div>
+
             </div>
         </div>
     </nav>
@@ -35,4 +68,59 @@
     </nav>
 </div>
 </body>
+<style>
+    /* Navbar styling */
+    .navbar {
+        padding: 0.8rem 1rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Brand styling */
+    .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: #fff !important;
+    }
+
+    /* Navbar links */
+    .navbar-nav .nav-link {
+        color: #f8f9fa !important;  /* Light text */
+        font-size: 1rem;
+        margin-right: 1rem;
+        transition: color 0.3s ease;
+    }
+
+    /* Hover effect for links */
+    .navbar-nav .nav-link:hover {
+        color: #ffc107 !important; /* Golden accent on hover */
+        text-decoration: underline;
+    }
+
+    /* Active link styling */
+    .navbar-nav .nav-link.active {
+        font-weight: bold;
+        color: #ffc107 !important;
+    }
+
+    /* Container for navbar content */
+    .container-fluid {
+        max-width: 1200px;
+    }
+
+
+    /* Ensure navbar links are evenly spaced */
+    .navbar-nav {
+        display: flex;
+        gap: 1rem;
+    }
+
+    /* Optional: make navbar fixed top */
+    .navbar-fixed-top {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1030;
+    }
+</style>
+
 </html>
